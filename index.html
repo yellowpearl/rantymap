@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RentyMap</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>RentyMap</h1>
+
+    <section class="section">
+      <h2>Главная точка (работа / вуз / родственники)</h2>
+
+      <label for="main-point">Адрес:</label>
+      <input type="text" id="main-point" placeholder="Введите адрес" required autocomplete="off" />
+
+      <div class="selectors">
+        <div class="selector">
+          <label for="main-transport">Транспорт:</label>
+          <select id="main-transport">
+            <option value="">Выберите способ</option>
+            <option value="Пешком">Пешком</option>
+            <option value="На общественном транспорте">Общественный транспорт</option>
+            <option value="На машине">На машине</option>
+          </select>
+        </div>
+
+        <div class="selector">
+          <label for="main-time">Время (мин):</label>
+          <select id="main-time">
+            <option value="">Выберите время</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+            <option value="60">60</option>
+            <option value="90">90</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Дополнительные опции</h2>
+      <div id="additional-options"></div>
+      <button id="add-option" type="button">+ Добавить опцию</button>
+    </section>
+
+    <button id="submit-btn" type="button" disabled>Создать карту</button>
+
+    <div id="email-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Введите ваш Email</h3>
+        <input type="email" id="modal-email" placeholder="example@mail.com" required/>
+        <button id="modal-send-btn" type="button">Отправить</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display: none;"></iframe>
+</body>
+</html>
