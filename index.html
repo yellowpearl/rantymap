@@ -5,13 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RentyMap</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <main class="container">
     <h1>RentyMap</h1>
-
+    <p>
+      Не знаете, где лучше арендовать квартиру? Укажите интересующий адрес (работы, учёбы или другого места), предпочтительное время в пути, удобный транспорт — и мы подберём для вас подходящие районы.
+      Мы создадим персонализированную карту и отправим её вам. Это бесплатно.
+    </p>
     <section class="section">
-      <h2>Главная точка (работа / вуз / родственники)</h2>
+      <h4>Главная точка</h4>
 
       <label for="main-point">Адрес:</label>
       <input type="text" id="main-point" placeholder="Введите адрес" required autocomplete="off" />
@@ -45,7 +50,7 @@
     </section>
 
     <section class="section">
-      <h2>Дополнительные опции</h2>
+      <h3>Дополнительные опции</h3>
       <div id="additional-options"></div>
       <button id="add-option" type="button">+ Добавить опцию</button>
     </section>
@@ -54,9 +59,21 @@
 
     <div id="email-modal" class="modal hidden">
       <div class="modal-content">
+        <button class="modal-close-btn" type="button">&times;</button>
         <h3>Введите ваш Email</h3>
         <input type="email" id="modal-email" placeholder="example@mail.com" required/>
         <button id="modal-send-btn" type="button">Отправить</button>
+      </div>
+      <div id="modal-success-message" style="display:none;">
+        <button id="success-close-btn" class="modal-close-btn" type="button">&times;
+        </button>
+        <h3>Спасибо за отправку!</h3>
+        <p>Ваша карта будет скоро готова, и мы пришлем её вам на почту.</p>
+        <p>А пока, пожалуйста, пройдите короткий опрос:</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSexEEiCsSCGNM4C7PkOwBphIKkrPXsKhSh04kaNQTFWDDk48Q/viewform?usp=header" target="_blank"
+           class="survey-link">
+          Перейти к опросу
+        </a>
       </div>
     </div>
   </main>

@@ -81,6 +81,7 @@ addOptionBtn.addEventListener('click', () => {
       .filter(([key]) => !selectedOptions.has(key))
       .map(([key, label]) => `<option value="${key}">${label}</option>`)
       .join('');
+
   selector.onchange = () => {
     const key = selector.value;
     if (!key || selectedOptions.has(key)) return;
@@ -90,27 +91,44 @@ addOptionBtn.addEventListener('click', () => {
 
     const block = document.createElement('div');
     block.className = 'section';
+    block.dataset.optionKey = key;
+
     block.innerHTML = `
-      <label>${optionIcons[key]} ${optionNames[key]}</label>
-      <div class="selectors">
-        <div class="selector">
-          <select name="${key}-transport">
-            <option value="Пешком">Пешком</option>
-            <option value="На общественном транспорте">Общественный транспорт</option>
-            <option value="На машине">Машина</option>
-          </select>
-        </div>
-        <div class="selector">
-          <select name="${key}-time">
-            ${[5, 10, 15, 20, 30, 45, 60, 90].map(t => `<option value="${t}">${t} мин</option>`).join('')}
-          </select>
-        </div>
-      </div>
-      <small style="color: gray">${optionDescriptions[key]}</small>
-    `;
+  <label class="option-label">
+    <span>${optionIcons[key]} ${optionNames[key]}</span>
+    <button type="button" class="remove-option-btn" title="Удалить">✖</button>
+  </label>
+  <div class="selectors">
+    <div class="selector">
+      <select name="${key}-transport">
+        <option value="Пешком">Пешком</option>
+        <option value="На общественном транспорте">Общественный транспорт</option>
+        <option value="На машине">Машина</option>
+      </select>
+    </div>
+    <div class="selector">
+      <select name="${key}-time">
+        ${[5, 10, 15, 20, 30, 45, 60, 90].map(t => `<option value="${t}">${t} мин</option>`).join('')}
+      </select>
+    </div>
+  </div>
+  <small style="color: gray">${optionDescriptions[key]}</small>
+`;
+
+    const removeBtn = block.querySelector('.remove-option-btn');
+    removeBtn.addEventListener('click', () => {
+      selectedOptions.delete(key);
+      block.remove();
+      updateAddOptionButtonVisibility();
+    });
+
     additionalOptionsContainer.appendChild(block);
+
+    updateAddOptionButtonVisibility(); // показать кнопку, если снова есть доступные
   };
+
   additionalOptionsContainer.appendChild(selector);
+  updateAddOptionButtonVisibility(); // скрыть кнопку пока не выбран
 });
 
 submitBtn.addEventListener('click', (e) => {
@@ -197,10 +215,12 @@ modalSendBtn.addEventListener('click', () => {
   form.submit();
   document.body.removeChild(form);
 
-  modal.classList.add('hidden');
+  //modal.classList.add('hidden');
   form.reset();
-  additionalOptionsContainer.innerHTML = '';
+  //additionalOptionsContainer.innerHTML = '';
   selectedOptions.clear();
+  updateAddOptionButtonVisibility();
+  showSuccessMessage();
 });
 
 
@@ -213,9 +233,42 @@ function checkMainFieldsFilled() {
   submitBtn.disabled = !isFilled;
 }
 
+function updateAddOptionButtonVisibility() {
+  const hasUnchosenSelector = additionalOptionsContainer.querySelector('select:not([name])'); // временные селекты
+  const remainingOptions = Object.keys(optionNames).filter(k => !selectedOptions.has(k));
+
+  addOptionBtn.style.display = (!hasUnchosenSelector && remainingOptions.length > 0) ? 'inline-block' : 'none';
+}
+
 mainPointInput.addEventListener('input', checkMainFieldsFilled);
 mainModeSelect.addEventListener('change', checkMainFieldsFilled);
 mainTimeSelect.addEventListener('change', checkMainFieldsFilled);
 
 // Проверим при загрузке страницы
 checkMainFieldsFilled();
+
+
+const modalCloseBtn = document.querySelector('.modal-close-btn');
+
+modalCloseBtn.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
+
+const modalContent = document.getElementById('modal-content');
+
+function showSuccessMessage() {
+  const modal = document.getElementById('email-modal');
+  const modalContent = modal.querySelector('.modal-content');
+  const successMessage = document.getElementById('modal-success-message');
+
+  modalContent.style.display = 'none';      // Скрываем форму
+  successMessage.style.display = 'block';   // Показываем сообщение успеха
+
+  // Навесить обработчик на крестик в successMessage
+  const closeBtn = successMessage.querySelector('.modal-close-btn');
+  closeBtn.onclick = () => {
+    modal.classList.add('hidden');           // Скрыть всю модалку
+    modalContent.style.display = 'block';   // Вернуть форму в исходное состояние
+    successMessage.style.display = 'none';  // Скрыть successMessage для следующего раза
+  };
+}

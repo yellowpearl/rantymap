@@ -1,10 +1,23 @@
 /* style.css */
 
 body {
+  font-family: 'Nunito', sans-serif;
   font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
   margin: 0;
   padding: 0;
+  background: url('images/background2.png') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.75); /* Белый с прозрачностью */
+  z-index: -1;
 }
 
 .container {
@@ -17,7 +30,16 @@ body {
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
+  color: #2c3e50;
+  font-size: 2.5rem;
+}
+
+h4 {
+  color: #2c3e50;
+}
+
+h3 {
   color: #2c3e50;
 }
 
@@ -28,6 +50,7 @@ h1 {
 label {
   display: block;
   margin-bottom: 0.25rem;
+  margin-left: 0.1rem;
   font-weight: 500;
   color: #34495e;
 }
@@ -44,7 +67,7 @@ select {
 }
 
 button {
-  background-color: #ff5a5f;
+  background-color: #2ecc71;
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -71,7 +94,11 @@ button:disabled {
 
 #add-option {
   background-color: #3498db;
-  margin-top: 1rem;
+  width: 100%;
+}
+
+#submit-btn {
+  width: 100%;
 }
 
 .modal {
@@ -90,6 +117,7 @@ button:disabled {
 }
 
 .modal-content {
+  position: relative;
   background-color: white;
   padding: 2rem;
   border-radius: 12px;
@@ -101,4 +129,55 @@ button:disabled {
 
 .modal-content input {
   margin-bottom: 1rem;
+}
+
+#modal-success-message {
+  position: relative;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  display: none; /* изначально скрыт */
+}
+
+.option-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 0.25rem;
+}
+
+.remove-option-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 1rem;
+  margin-right: 4px;
+}
+
+.remove-option-btn:hover {
+  color: #e74c3c;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+}
+
+.modal-close-btn:hover {
+  color: #333;
 }
