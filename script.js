@@ -141,7 +141,7 @@ submitBtn.addEventListener('click', (e) => {
     alert('Пожалуйста, заполните адрес и параметры важной точки.');
     return;
   }
-
+  ym(102625735,'reachGoal','create_map')
   modal.classList.remove('hidden');
 });
 
@@ -152,7 +152,7 @@ modalSendBtn.addEventListener('click', () => {
     alert('Введите email.');
     return;
   }
-
+  ym(102625735,'reachGoal','send_email')
   // Получаем основной адрес из input с id main-point
   const mainPointValue = document.getElementById('main-point').value.trim();
   const mainTransportValue = document.getElementById('main-transport').value;
@@ -257,6 +257,7 @@ modalCloseBtn.addEventListener('click', () => {
 const modalContent = document.getElementById('modal-content');
 
 function showSuccessMessage() {
+  ym(102625735,'reachGoal','form_success')
   const modal = document.getElementById('email-modal');
   const modalContent = modal.querySelector('.modal-content');
   const successMessage = document.getElementById('modal-success-message');
