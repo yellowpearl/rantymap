@@ -79,7 +79,10 @@
         <button class="modal-close-btn" type="button">&times;</button>
         <h3>Введите ваш Email</h3>
         <input type="email" id="modal-email" placeholder="example@mail.com" required/>
-        <button id="modal-send-btn" type="button">Отправить</button>
+        <div id="email-error" style="color: red; font-size: 0.9rem; display: none;">
+        Пожалуйста, введите корректный email.
+        </div>
+        <button id="modal-send-btn" type="button" disabled>Отправить</button>
       </div>
       <div id="modal-success-message" style="display:none;">
         <button id="success-close-btn" class="modal-close-btn" type="button">&times;

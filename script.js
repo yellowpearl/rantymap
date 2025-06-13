@@ -71,8 +71,14 @@ const submitBtn = document.getElementById('submit-btn');
 const modal = document.getElementById('email-modal');
 const modalEmailInput = document.getElementById('modal-email');
 const modalSendBtn = document.getElementById('modal-send-btn');
+const emailInput = document.getElementById('modal-email');
+const emailError = document.getElementById('email-error');
 
 let selectedOptions = new Set();
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 addOptionBtn.addEventListener('click', () => {
   const selector = document.createElement('select');
@@ -146,10 +152,28 @@ submitBtn.addEventListener('click', (e) => {
 });
 
 
+emailInput.addEventListener('input', () => {
+  const email = emailInput.value.trim();
+  if (isValidEmail(email)) {
+    console.log(isValidEmail(email));
+    emailError.style.display = 'none';
+    modalSendBtn.disabled = false;
+  } else {
+    console.log(isValidEmail(email));
+    emailError.style.display = 'block';
+    modalSendBtn.disabled = true;
+  }
+});
+
 modalSendBtn.addEventListener('click', () => {
   const email = modalEmailInput.value.trim();
   if (!email) {
     alert('Введите email.');
+    return;
+  }
+  if (!isValidEmail(email)) {
+    emailError.style.display = 'block';
+    sendButton.disabled = true;
     return;
   }
   ym(102625735,'reachGoal','send_email')
